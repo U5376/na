@@ -901,11 +901,11 @@ class ConverterBase
   def object_of_ruby?(char)
     char =~ /[#{CHARACTER_OF_RUBY}]/
   end
-
+  # 匹配修改了让此行匹配不到任何东西,使傍点功能失效沿用ルビ
   def is_sesame?(str, ten, last_char)
-    ten =~ /^[・、]+$/ && (str.include?("｜") || object_of_ruby?(last_char))
+    ten =~ /^$/ && (str.include?("｜") || object_of_ruby?(last_char))
   end
-
+  
   def sesame(str)
     if str.include?("｜")
       str.sub("｜", "［＃傍点］") + "［＃傍点終わり］"
@@ -1028,11 +1028,11 @@ class ConverterBase
 
   #
   # 中黒(・)や句読点を並べて三点リーダーもどきにしているのを三点リーダーに変換
-  #
+  # %w(・ 。 、 ．)内容物已修改为空
   def convert_horizontal_ellipsis(data)
     return if !@setting.enable_convert_horizontal_ellipsis || \
               @text_type == "subtitle" || @text_type == "chapter"
-    %w(・ 。 、 ．).each do |char|
+    %w().each do |char|
       data.gsub!(/#{char}{3,}/) do |match|
         pre_char, post_char = $`[-1], $'[0]
         if pre_char == "―" || post_char == "―"
