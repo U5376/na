@@ -70,7 +70,7 @@ class HTML
   def p_to_aozora(text = @string)
     text.gsub(/\n?<\/p>/i, "\n")
   end
-#增加判定
+# 追加判定
 def ruby_to_aozora(text = @string)
   text.tr("《》", "≪≫")
       .gsub(/<ruby>(.+?)<\/ruby>/i) do
@@ -82,11 +82,9 @@ def ruby_to_aozora(text = @string)
       "｜#{ruby_base}《#{ruby_text}》"
     else
       "｜#{ruby_base}《#{ruby_text}》《#{ruby_text}》"
-      end
+    end
   end
-
-
-
+end
 
   def b_to_aozora(text = @string)
     text.gsub(/<b>/i, "［＃太字］").gsub(/<\/b>/i, "［＃太字終わり］")
