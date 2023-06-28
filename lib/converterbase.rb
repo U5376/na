@@ -451,6 +451,8 @@ class ConverterBase
   def convert_double_angle_quotation_to_gaiji(data)
     data.gsub!("≪", "※［＃始め二重山括弧］")
     data.gsub!("≫", "※［＃終わり二重山括弧］")
+    # ルビ处理关闭时会有两个以下的格式重复所以捕获组匹配替换成一个
+    data.gsub!(/(※［＃始め二重山括弧］.*?※［＃終わり二重山括弧］)(※［＃始め二重山括弧］.*?※［＃終わり二重山括弧］)/, '\1')
   end
 
   #
